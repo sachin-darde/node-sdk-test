@@ -13,7 +13,7 @@ npm install mobilo-auth
 ```javascript
 const MobiloAuth = require('mobilo-auth');
 
-const apiBaseUrl = 'https://api.example.com';
+const apiBaseUrl = 'https://<base-url>/v1/auth';
 
 const auth = new MobiloAuth(apiBaseUrl);
 
