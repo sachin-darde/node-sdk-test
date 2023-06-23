@@ -1,4 +1,12 @@
-const checkAuth = require('./checkAuth');
+const {
+  checkAuth,
+  createRoleWithPermissions,
+  removePermissionsFromRole,
+  addPermissionsToRole,
+  assignRoleToUser,
+  unassignRoleFromUser,
+  deleteRole,
+} = require('./src/');
 
 class MobiloAuth {
   constructor(apiBaseUrl) {
@@ -7,6 +15,30 @@ class MobiloAuth {
 
   async checkAuth(uid, permission) {
     return checkAuth(this.apiBaseUrl, uid, permission);
+  }
+
+  async createRoleWithPermissions(roleId, name, permissions) {
+    return createRoleWithPermissions(this.apiBaseUrl, roleId, name, permissions);
+  }
+
+  async addPermissionsToRole( roleId, permissions) {
+    return addPermissionsToRole(this.apiBaseUrl, roleId, permissions);
+  }
+
+  async removePermissionsFromRole(roleId, permissions) {
+    return removePermissionsFromRole(this.apiBaseUrl, roleId, permissions);
+  }
+
+  async assignRoleToUser(roleId, uid) {
+    return assignRoleToUser(this.apiBaseUrl, roleId, uid);
+  }
+  
+  async unassignRoleFromUser(roleId, uid) {
+    return unassignRoleFromUser(this.apiBaseUrl, roleId, uid);
+  }
+  
+  async deleteRole(roleId) {
+    return deleteRole(this.apiBaseUrl, roleId);
   }
   
 }
