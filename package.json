@@ -11,5 +11,11 @@
     "url": "github.dreamkasper.com:Mobilo-JLP/mobilo-auth-sdk.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.43.0"
+  }
 }

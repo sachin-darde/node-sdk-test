@@ -1,15 +1,14 @@
-// Function to add two numbers
-function add(a, b) {
-    return a + b;
+const checkAuth = require('./checkAuth');
+
+class MobiloAuth {
+  constructor(apiBaseUrl) {
+    this.apiBaseUrl = apiBaseUrl;
+  }
+
+  async checkAuth(uid, permission) {
+    return checkAuth(this.apiBaseUrl, uid, permission);
+  }
+  
 }
 
-// Function to subtract two numbers
-function subtract(a, b) {
-    return a - b;
-}
-
-// Export the functions
-module.exports = {
-    add,
-    subtract
-};
+module.exports = MobiloAuth;
