@@ -1,5 +1,6 @@
-const axios = require('axios');
-async function deleteRole(apiBaseUrl, roleId) {
+import axios from 'axios';
+
+export async function deleteRole(apiBaseUrl, roleId) {
     try {
         var data = JSON.stringify({
             "roleId": roleId

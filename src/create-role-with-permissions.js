@@ -1,5 +1,5 @@
-const axios = require('axios');
-async function createRoleWithPermissions(apiBaseUrl, roleId, name, permissions) {
+import axios from 'axios';
+export async function createRoleWithPermissions(apiBaseUrl, roleId, name, permissions) {
     try {
         var data = JSON.stringify({
             "roleId": roleId,
@@ -24,4 +24,3 @@ async function createRoleWithPermissions(apiBaseUrl, roleId, name, permissions) 
             throw error;
     }
 }
-module.exports = createRoleWithPermissions;

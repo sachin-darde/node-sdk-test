@@ -1,5 +1,45 @@
-import { checkAuth } from "./src/check-auth.js";
+import {
+  checkAuth,
+  createRoleWithPermissions,
+  removePermissionsFromRole,
+  addPermissionsToRole,
+  assignRoleToUser,
+  unassignRoleFromUser,
+  deleteRole,
+} from './src';
 
-checkAuth('https://fbb2-2405-201-2018-5084-bc49-1463-5ce6-56c6.ngrok-free.app/v1/auth', '1eq9NU9ZogfQlVihD9VhWENGGA23', 'createRole').then((x) => {
-  console.log(x);
-})
+class MobiloAuth {
+  constructor(apiBaseUrl) {
+    this.apiBaseUrl = apiBaseUrl;
+  }
+
+  async checkAuth(uid, permission) {
+    return checkAuth(this.apiBaseUrl, uid, permission);
+  }
+
+  async createRoleWithPermissions(roleId, name, permissions) {
+    return createRoleWithPermissions(this.apiBaseUrl, roleId, name, permissions);
+  }
+
+  async addPermissionsToRole(roleId, permissions) {
+    return addPermissionsToRole(this.apiBaseUrl, roleId, permissions);
+  }
+
+  async removePermissionsFromRole(roleId, permissions) {
+    return removePermissionsFromRole(this.apiBaseUrl, roleId, permissions);
+  }
+
+  async assignRoleToUser(roleId, uid) {
+    return assignRoleToUser(this.apiBaseUrl, roleId, uid);
+  }
+
+  async unassignRoleFromUser(roleId, uid) {
+    return unassignRoleFromUser(this.apiBaseUrl, roleId, uid);
+  }
+
+  async deleteRole(roleId) {
+    return deleteRole(this.apiBaseUrl, roleId);
+  }
+}
+
+export default MobiloAuth;

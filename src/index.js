@@ -1,17 +1,17 @@
-const checkAuth = require('./check-auth');
-const addPermissionsToRole = require('./add-permissions-to-role');
-const assignRoleToUser = require('./assign-role-to-user');
-const createRoleWithPermissions = require('./create-role-with-permissions');
-const deleteRole = require('./delete-role');
-const removePermissionsFromRole = require('./remove-permissions-from-role');
-const unassignRoleFromUser = require('./unassign-role-from-user');
+import checkAuth from './check-auth';
+import addPermissionsToRole from './add-permissions-to-role';
+import assignRoleToUser from './assign-role-to-user';
+import createRoleWithPermissions from './create-role-with-permissions';
+import deleteRole from './delete-role';
+import removePermissionsFromRole from './remove-permissions-from-role';
+import unassignRoleFromUser from './unassign-role-from-user';
 
-module.exports = {
-    checkAuth,
-    createRoleWithPermissions,
-    removePermissionsFromRole,
-    addPermissionsToRole,
-    deleteRole,
-    assignRoleToUser,
-    unassignRoleFromUser,
+export {
+  checkAuth,
+  createRoleWithPermissions,
+  removePermissionsFromRole,
+  addPermissionsToRole,
+  deleteRole,
+  assignRoleToUser,
+  unassignRoleFromUser
 };

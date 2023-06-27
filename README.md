@@ -5,13 +5,14 @@
 ## Installation
 
 ```bash
-npm install mobilo-auth
+npm install git+https://github.com/Mobilo-JLP/mobilo-auth-sdk.git
 ```
 
 ## Usage
 
 ```javascript
 const MobiloAuth = require('mobilo-auth');
+
 
 const apiBaseUrl = 'https://<base-url>/v1/auth';
 
@@ -133,8 +134,6 @@ Returns a promise that resolves with the response after adding permissions to th
 Removes permissions from an existing role.
 
 - `roleId` (string): The ID of the role
-
-.
 - `permissions` (array): An array of permissions to remove.
 
 Returns a promise that resolves with the response after removing permissions from the role.

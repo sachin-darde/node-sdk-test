@@ -30,3 +30,4 @@ export async function checkAuth(apiBaseUrl, uid, permission){
     else throw error;
   }
 }
+

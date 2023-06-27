@@ -1,6 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
-async function unassignRoleFromUser(apiBaseUrl, roleId, uid) {
+export async function unassignRoleFromUser(apiBaseUrl, roleId, uid) {
     try {
         var data = JSON.stringify({
             "roleId": roleId,
@@ -24,4 +24,3 @@ async function unassignRoleFromUser(apiBaseUrl, roleId, uid) {
             throw error;
     }
 }
-module.exports = unassignRoleFromUser;
