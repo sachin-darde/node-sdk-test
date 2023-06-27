@@ -1,12 +1,10 @@
-import {
-  checkAuth,
-  createRoleWithPermissions,
-  removePermissionsFromRole,
-  addPermissionsToRole,
-  assignRoleToUser,
-  unassignRoleFromUser,
-  deleteRole,
-} from './src';
+import { checkAuth } from './src/check-auth';
+import { addPermissionsToRole } from './src/add-permissions-to-role';
+import { assignRoleToUser } from './src/assign-role-to-user';
+import { createRoleWithPermissions } from './src/create-role-with-permissions';
+import { deleteRole } from './src/delete-role';
+import { removePermissionsFromRole } from './src/remove-permissions-from-role';
+import { unassignRoleFromUser } from './src/unassign-role-from-user';
 
 class MobiloAuth {
   constructor(apiBaseUrl) {
