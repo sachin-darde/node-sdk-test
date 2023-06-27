@@ -1,5 +1,11 @@
 import { expect } from 'chai';
-import * as controllers from '../src/index';
+import { checkAuth } from '../src/check-auth';
+import { addPermissionsToRole } from '../src/add-permissions-to-role';
+import { assignRoleToUser } from '../src/assign-role-to-user';
+import { createRoleWithPermissions } from '../src/create-role-with-permissions';
+import { deleteRole } from '../src/delete-role';
+import { removePermissionsFromRole } from '../src/remove-permissions-from-role';
+import { unassignRoleFromUser } from '../src/unassign-role-from-user';
 
 function makeId(length) {
   let result = '';
@@ -17,7 +23,7 @@ const randomRoleId = makeId(8);
 
 let unitTestUser = 'WbBNIOCS1XT66POxtqBofSaSJ8k2';
 const unitTestPermissions = ['createRole', 'updateRole', 'deleteRole'];
-const apiBaseUrl = "https://5db7-2405-201-2018-5086-3167-5177-5851-ef51.ngrok-free.app/v1/auth"
+const apiBaseUrl = "https://fbb2-2405-201-2018-5084-bc49-1463-5ce6-56c6.ngrok-free.app/v1/auth"
 
 describe('auth-srv', () => {
   describe('createRole', () => {
@@ -26,11 +32,11 @@ describe('auth-srv', () => {
       const name = 'System Administrator';
       const permissions = [unitTestPermissions[0]];
       try {
-        await controllers.createRoleWithPermissions(apiBaseUrl,roleId, name, permissions);
+        await createRoleWithPermissions(apiBaseUrl, roleId, name, permissions);
       } catch (error) {
         expect(error).to.equal('Role already exist');
       }
-         
+
       // expect(resp).to.equal('Role already exist');
     });
 
@@ -39,7 +45,7 @@ describe('auth-srv', () => {
       const roleId = randomRoleId;
       const name = 'System Administrator';
       const permissions = [unitTestPermissions[0]];
-      const resp = await controllers.createRoleWithPermissions(apiBaseUrl,roleId, name, permissions);
+      const resp = await createRoleWithPermissions(apiBaseUrl, roleId, name, permissions);
       expect(resp).to.equal('Role created');
     });
   });
@@ -48,7 +54,7 @@ describe('auth-srv', () => {
     it('it should be "Add permission in role"', async () => {
       const roleId = randomRoleId;
       const permissions = unitTestPermissions;
-      const resp =  await controllers.addPermissionsToRole(apiBaseUrl, roleId, permissions);
+      const resp = await addPermissionsToRole(apiBaseUrl, roleId, permissions);
       expect(resp).to.equal('Role updated');
     });
   });
@@ -57,32 +63,32 @@ describe('auth-srv', () => {
     it('it should be "remove permission from role"', async () => {
       const roleId = randomRoleId;
       const permissions = [unitTestPermissions[(unitTestPermissions.length - 1)]];
-      const resp = await controllers.removePermissionsFromRole(apiBaseUrl, roleId, permissions);
+      const resp = await removePermissionsFromRole(apiBaseUrl, roleId, permissions);
       expect(resp).to.equal('Role updated');
     });
   });
 
   describe('assignRoleToUser', () => {
     it('it should failed as "User not found!"', async () => {
-      const roleId = 'Employee';
-      const uid = 'anyUID';  
+      const roleId = 'SystemAdmin';
+      const uid = 'anyUID';
       try {
-        await controllers.assignRoleToUser(apiBaseUrl, roleId, uid);
+        await assignRoleToUser(apiBaseUrl, roleId, uid);
       } catch (error) {
         expect(error).to.equal('There is no user record corresponding to the provided identifier.');
       }
     });
     it('it should "Assign role to the user"', async () => {
       const roleId = randomRoleId;
-      const  uid  = unitTestUser;
-      const resp = await controllers.assignRoleToUser(apiBaseUrl, roleId, uid);
+      const uid = unitTestUser;
+      const resp = await assignRoleToUser(apiBaseUrl, roleId, uid);
       expect(resp).to.equal('Role assigned to user');
     });
     it('it should failed as "Role already assigned"', async () => {
       const roleId = randomRoleId;
-      const  uid  = unitTestUser;
+      const uid = unitTestUser;
       try {
-        await controllers.assignRoleToUser(apiBaseUrl, roleId, uid);
+        await assignRoleToUser(apiBaseUrl, roleId, uid);
       } catch (error) {
         expect(error).to.equal('Role already assigned');
       }
@@ -94,21 +100,21 @@ describe('auth-srv', () => {
       const permission = 'createRole';
       const uid = 'anyUID';
       try {
-        const resp = await controllers.checkAuth(apiBaseUrl, uid, permission);
+        const resp = await checkAuth(apiBaseUrl, uid, permission);
       } catch (error) {
         expect(error).to.equal('There is no user record corresponding to the provided identifier.');
       }
     });
     it('it should respond "User don\'t have permission"', async () => {
       const permission = unitTestPermissions[(unitTestPermissions.length - 1)];
-      const  uid  = unitTestUser;
-      const resp = await controllers.checkAuth(apiBaseUrl, uid, permission);
-      expect(resp).to.equal(false); 
+      const uid = unitTestUser;
+      const resp = await checkAuth(apiBaseUrl, uid, permission);
+      expect(resp).to.equal(false);
     });
     it('it should respond "User have permission"', async () => {
       const permission = unitTestPermissions[0];
-      const  uid  = unitTestUser;
-      const resp = await controllers.checkAuth(apiBaseUrl, uid, permission);
+      const uid = unitTestUser;
+      const resp = await checkAuth(apiBaseUrl, uid, permission);
       expect(resp).to.equal(true);
     });
   });
@@ -118,24 +124,24 @@ describe('auth-srv', () => {
       const roleId = randomRoleId;
       const uid = 'anyUID';
       try {
-        const resp = await controllers.unassignRoleFromUser(apiBaseUrl, roleId, uid);
+        const resp = await unassignRoleFromUser(apiBaseUrl, roleId, uid);
       } catch (error) {
         expect(error).to.equal('There is no user record corresponding to the provided identifier.');
       }
     });
     it('it should failed as "Role not assigned"', async () => {
       const roleId = 'Employee';
-      const  uid = unitTestUser;
+      const uid = unitTestUser;
       try {
-        await controllers.unassignRoleFromUser(apiBaseUrl, roleId, uid);
+        await unassignRoleFromUser(apiBaseUrl, roleId, uid);
       } catch (error) {
         expect(error).to.equal('Role not assigned');
       }
     });
     it('it should "Unassign role from the user"', async () => {
       const roleId = randomRoleId;
-      const  uid  = unitTestUser;
-      const resp = await controllers.unassignRoleFromUser(apiBaseUrl, roleId, uid);
+      const uid = unitTestUser;
+      const resp = await unassignRoleFromUser(apiBaseUrl, roleId, uid);
       expect(resp).to.equal('Role removed from user');
     });
   });
@@ -144,7 +150,7 @@ describe('auth-srv', () => {
     it('it should failed as "Role Data not found"', async () => {
       const roleId = 'NonExistingRoleId';
       try {
-        await controllers.deleteRole(apiBaseUrl, roleId);
+        await deleteRole(apiBaseUrl, roleId);
       } catch (error) {
         expect(error).to.equal('Role Data not found');
       }
@@ -152,7 +158,7 @@ describe('auth-srv', () => {
 
     it('it should be successful as "Role deleted"', async () => {
       const roleId = randomRoleId;
-      const resp = await controllers.deleteRole(apiBaseUrl, roleId);
+      const resp = await deleteRole(apiBaseUrl, roleId);
       expect(resp).to.equal('Role deleted');
     });
   });
