@@ -24,5 +24,4 @@ export async function deleteRole(apiBaseUrl, roleId) {
     }
 }
 
-module.exports = deleteRole;
 
